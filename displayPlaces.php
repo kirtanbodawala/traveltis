@@ -44,11 +44,15 @@ include 'header.php';
 		<img src="<?php echo $place_icon; ?>">
 	</div>
 	<div class="images">	
-		<?php 	
+		<?php
+			$firstImage = ""; 	
 			foreach ($place_Data['result']['photos'] as $pics) {
 				$photo = $pics['photo_reference'];
 				$pic_url = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' . $photo . '&key=AIzaSyCCkk07zCBTJp6JO4EYhb_RitjYnP8DDwU';
 				//echo '<a href="#" class="thumbnail">';
+				if (empty($firstImage)) {
+					$firstImage = $pic_url;
+				}
 				echo '<img class="magnify thumbnail" src="' . $pic_url . '">';
 				//echo '</a>';
 			} 
@@ -81,6 +85,23 @@ include 'header.php';
 	?>
 </div>	
 </div>
+
+<!-- Yotpo -->
+
+<div class="yotpo yotpo-main-widget"
+data-product-id="<?php echo $place_detail_id;  ?>"
+data-name="<?php echo $place_name; ?>"
+data-url="<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>"
+data-image-url="<?php echo $firstImage; ?>"
+>
+</div>
+<!-- data-description="Product description" -->
+<script type="text/javascript">
+(function e(){var e=document.createElement("script");e.type="text/javascript",e.async=true,e.src="//staticw2.yotpo.com/MUEdSCCJkyqhrvxN3zqECRArVjRxHxxY356ER0MF/widget.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})();
+</script>
+
+
+<!-- Disqus  -->
 <div id="disqus_thread"></div>
 <script>
 /**
@@ -89,7 +110,7 @@ include 'header.php';
 
 var disqus_config = function () {
 this.page.url = "<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>";  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "<?php $place_detail_id;  ?>"// Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.identifier = "<?php echo $place_detail_id;  ?>"// Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
@@ -100,5 +121,7 @@ s.setAttribute('data-timestamp', +new Date());
 })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
 
 <?php include 'footer.php'; ?>
