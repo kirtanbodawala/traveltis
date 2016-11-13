@@ -1,6 +1,6 @@
 <?php
 
-	require '../vendor/autoload.php';
+	require './vendor/autoload.php';
 	include "header.php";
 ?>
 <nav class="navbar navbar-inverse navbar-fixed-top">
