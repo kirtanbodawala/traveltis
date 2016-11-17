@@ -4,7 +4,7 @@ $(document).ready(function() {
 
 var myMap;                  // holds the map object
 var centerpoint;            // center point of the map
-var infoWindow = new google.maps.InfoWindow();;
+var infoWindow = new google.maps.InfoWindow();
 
 function initialize() {
 
@@ -60,22 +60,21 @@ function position(coord) {
     var first_url = document.querySelector("#firstUrl").innerHTML;
     var next_page_token = document.querySelector("#nextPage").innerHTML;
     var page = first_url + "&pagetoken=" + next_page_token;
-    var next_page_btn = document.querySelector(".nextBtn");
 
-if($('table.first').length > 0 || $('table.next').length > 0){
+if($('.portfolio-item').length > 0 || $('portfolio-item').length > 0){
     var ids = $(".id");
-    var btn = [];
+    var photo = [];
     var arr = [];
     for(var i = 0; i < ids.length; i++){
         var pid = ids[i].innerHTML;
-        var btns = $(".btn")[i]; 
-        btn.push(btns);
+        var photos = $(".photo")[i]; 
+        photo.push(photos);
         arr.push(pid);
     }
-    for(var i = 0; i < btn.length; i++){  
-        btn[i].addEventListener("click", function(){
-            for(var j = 0; j < btn.length; j++){
-                if(this == btn[j]){
+    for(var i = 0; i < photo.length; i++){  
+        photo[i].addEventListener("click", function(){
+            for(var j = 0; j < photo.length; j++){
+                if(this == photo[j]){
                     curl(j);
                 }
                 else{
@@ -87,15 +86,11 @@ if($('table.first').length > 0 || $('table.next').length > 0){
     function curl(num){
         var c = arr[num];
         //window.location.href = 'displayPlaces.php?url=' + c;
-        window.open('displayPlaces.php?pid=' + c, "_blank");
+        window.open('placeDetails.php?pid=' + c, "_blank");
     }
-
-    next_page_btn.addEventListener("click", function(){
-        window.open('nextPage.php?token=' + page, "_blank");
-    })
 }    
 
-jQuery("div.magnify img").imageMagnify({ //apply effect to image with CLASS="img"
+jQuery(".images .magnify").imageMagnify({ //apply effect to image with CLASS="magnify"
          magnifyby: 6,
          magnifyduration: 1000 //<--No trailing comma after last option!
-})
+});

@@ -15,24 +15,6 @@
 	      	</button>
 	      	<a class="navbar-brand" href="index.php">Traveltis</a>
 	      	<input id="pac-input" type="text" placeholder="Enter a location">
-	      	<!-- <form class="navbar-form">
-	        	<div class="form-group">
-		          	<div id="type-selector">
-			       		<input type="radio" name="type" id="changetype-all" checked="checked">
-		      			<label for="changetype-all">All</label>
-		      			
-		      			<input type="radio" name="type" id="changetype-establishment">
-		      			<label for="changetype-establishment">Establishments</label>
-		      			
-		      			<input type="radio" name="type" id="changetype-address">
-		      			<label for="changetype-address">Addresses</label>
-		      			
-		      			<input type="radio" name="type" id="changetype-geocode">
-		      			<label for="changetype-geocode">Geocodes</label>
-		      		</div>
-		      		
-	        	</div>
-	      	</form> -->
 	    </div>
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
@@ -42,7 +24,7 @@
 </nav>
 <div class="container-fluid">
 	<div class="row">
-	<div id="map" class="col-xs-12"></div>
+	<div id="map"></div>
 	</div>
 </div>
 <?php  

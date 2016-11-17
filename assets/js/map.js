@@ -27,10 +27,10 @@ function initMap() {
         console.log(place1.name);
         var latitude = place1.geometry.location.lat();
         var longitude = place1.geometry.location.lng();
-        alert(latitude);
+        //alert(latitude);
         //alert("This function is working!");
         //alert(place.name);
-        // alert(place.address_components[0].long_name);
+        //alert(place.address_components[0].long_name);
     });
     autocomplete.addListener('place_changed', function() {
       infowindow.close();
@@ -67,24 +67,8 @@ function initMap() {
 	          (place.address_components[2] && place.address_components[2].short_name || '')
 	        ].join(' ');
       	}
-
       infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
       infowindow.open(map, marker);
-    });
-
-    // Sets a listener on a radio button to change the filter type on Places
-    // Autocomplete.
-    function setupClickListener(id, types) {
-      var radioButton = document.getElementById(id);
-      radioButton.addEventListener('click', function() {
-        autocomplete.setTypes(types);
-      });
-    }
-
-    setupClickListener('changetype-all', []);
-    setupClickListener('changetype-address', ['address']);
-    setupClickListener('changetype-establishment', ['establishment']);
-    setupClickListener('changetype-geocode', ['geocode']);
-    
+    });   
 }
 
