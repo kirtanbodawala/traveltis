@@ -9,7 +9,7 @@ function initMap() {
     var input = /** @type {!HTMLInputElement} */(
         document.getElementById('pac-input'));
 
-    var types = document.getElementById('type-selector');
+    //var types = document.getElementById('type-selector');
     // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
     // map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
 
@@ -49,13 +49,13 @@ function initMap() {
         map.setZoom(17);  // Why 17? Because it looks good.
       }
 
-      marker.setIcon(/** @type {google.maps.Icon} */({
-        url: place.icon,
-        size: new google.maps.Size(71, 71),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(35, 35)
-      }));
+      // marker.setIcon(/** @type {google.maps.Icon} */({
+      //   url: place.icon,
+      //   size: new google.maps.Size(71, 71),
+      //   origin: new google.maps.Point(0, 0),
+      //   anchor: new google.maps.Point(17, 34),
+      //   scaledSize: new google.maps.Size(35, 35)
+      // }));
       marker.setPosition(place.geometry.location);
       marker.setVisible(true);
 
