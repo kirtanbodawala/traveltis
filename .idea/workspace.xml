@@ -1,34 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f6fad971-20bd-4fc3-a467-43c14bc4fd12" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/css/bootstrap.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/css/bootstrap.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/css/style.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/fonts/glyphicons-halflings-regular.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/fonts/glyphicons-halflings-regular.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/fonts/glyphicons-halflings-regular.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/fonts/glyphicons-halflings-regular.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/fonts/glyphicons-halflings-regular.woff2" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/js/bootstrap.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/js/bootstrap.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/js/getLocation.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/js/jquery.magnifier.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/js/map-buffer.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/js/map.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/composer.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/footer.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/getLocation.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/getPlaces.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/header.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/index.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/nearByPlaces.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/nextPage.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/placeDetails.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/searchPlace.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/untitled.php" afterPath="" />
-    </list>
+    <list default="true" id="f6fad971-20bd-4fc3-a467-43c14bc4fd12" name="Default" comment="" />
     <ignored path="traveltis.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -344,12 +317,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1479543049381</updated>
-      <workItem from="1479543050838" duration="11078000" />
+      <workItem from="1479543050838" duration="11212000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11078000" />
+    <option name="totallyTimeSpent" value="11212000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="53" width="1291" height="686" extended-state="0" />
