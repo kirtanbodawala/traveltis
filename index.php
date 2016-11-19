@@ -1,48 +1,31 @@
-<?php
-    require './vendor/autoload.php';
-    include 'header.php';
-?>
-<!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.php">Traveltis</a>
-            <input id="pac-input" type="button" onclick="location.href = 'searchPlace.php';" value="Click here to search place">
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#">About Us</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
-                <li>
-                    <a class="login" href="#"><i class="fa fa-user" aria-hidden="true"></i> Login</a>
-                </li>
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
+<?php include_once __DIR__ . '/components/header.php'; ?>
+<?php $config = require __DIR__. '/inc/config.php'; ?>
+    <div class="col-md-9">
+        <div id="map-canvas" class="full-height xs-half-height"></div>
     </div>
-    <!-- /.container -->
-</nav>
-<!-- /.Navigation -->
-<div class="container">
-	<div id="map-canvas"></div>
-</div>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCkk07zCBTJp6JO4EYhb_RitjYnP8DDwU&libraries=places,drawing,geometry"></script>
-<script type="text/javascript" src="assets/js/map-buffer.js"></script>
-<?php 
-	include 'footer.php'; 
-?>         
+    <div class="col-md-3">
+        <p>Getting your nearby locations.</p>
+        <div id="list-places" class="full-height max-full-height xs-half-height">
+        </div>
+    </div>
+    <!-- Include all js libraries before including own scripts -->
+    <?php include_once __DIR__ . '/components/scripts.php'; ?>
+    <script type="text/template" id="place-media">
+        <div class="media">
+            <% if(photo.length) { %>
+            <a class="media-left" href="<%= url %>">
+                <img class="media-object" src="<%= photo %>" alt="<%= name %>">
+            </a>
+            <% } %>
+            <div class="media-body">
+                <p class="media-heading"><%= name %></p>
+            </div>
+        </div>
+    </script>
+    <script>
+        var googleConfig = <?php echo json_encode($config["google"]); ?>;
+    </script>
+    <script src="/js/map.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=<?php echo $config["google"]["key"]; ?>&callback=initMap"
+        async defer></script>
+<?php include_once __DIR__ . '/components/footer.php'; ?>
