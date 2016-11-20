@@ -12,44 +12,77 @@ function initMap() {
       position: google.maps.ControlPosition.RIGHT_CENTER
     }
   };
+  
+  // Load google maps in map-canvas
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  
+  // On click at any area in map load locations near to that click
+  google.maps.event.addDomListener(
+    map,
+    'click',
+    function(event) {
+      var lat = event.latLng.lat();
+      var lng = event.latLng.lng();
+      setMapUserCenter(lat, lng);
+      //map.setCenter({lat: lat,lng: lng});
+      loadNearbyPlaces(lat, lng);
+    }
+  );
+  
+  // Initialize Google autcomplete search
+  var autocomplete = new google.maps.places.Autocomplete(document.querySelector("#place-autocomplete"));
+  autocomplete.addListener('place_changed', function() {
+    var place = autocomplete.getPlace();
+    var lat = place.geometry.location.lat();
+    var lng = place.geometry.location.lng();
+    setMapUserCenter(lat, lng);
+    map.setCenter({lat: lat,lng: lng});
+    loadNearbyPlaces(lat, lng);
+  });
   
   (function($) {
     $(document).ready(function() {
   
-      var ipapiPromise = $.getJSON("http://ip-api.com/json/?callback=?", function(data) {
-        if(data && data.lat && data.lon) {
-          setMapUserCenter(data.lat, data.lon);
-          map.setCenter({lat: data.lat,lng: data.lon});
-          loadNearbyPlaces(data.lat, data.lon);
-          ipapiPromise = null;
-        }
-      });
-      
-      // If geolocation is available in browser
-      if(Modernizr.geolocation) {
-        navigator.geolocation.watchPosition(function (coordinates) {
-          if (
-            coordinates.coords &&
-            coordinates.coords.latitude &&
-            coordinates.coords.longitude ) {
-            if(ipapiPromise && ipapiPromise.abort) {
-              ipapiPromise.abort();
-            }
-  
-            // var lat = coordinates.coords.latitude;
-            // var lng = coordinates.coords.longitude;
-            
-            var lat = 32.740932;
-            var lng = -117.130875;
-            setMapUserCenter(lat, lng);
-            map.setCenter({lat: lat,lng: lng});
-            loadNearbyPlaces(lat, lng);
+      var goToCurrentLocation = function() {
+        var ipapiPromise = $.getJSON("http://ip-api.com/json/?callback=?", function(data) {
+          console.log('-0---->', data);
+          if(data && data.lat && data.lon) {
+            setMapUserCenter(data.lat, data.lon);
+            map.setCenter({lat: data.lat,lng: data.lon});
+            loadNearbyPlaces(data.lat, data.lon);
+            ipapiPromise = null;
           }
         });
+  
+        // If geolocation is available in browser
+        if(Modernizr.geolocation) {
+          navigator.geolocation.getCurrentPosition(function (coordinates) {
+            console.log(coordinates);
+            if (
+              coordinates.coords &&
+              coordinates.coords.latitude &&
+              coordinates.coords.longitude ) {
+              if(ipapiPromise && ipapiPromise.abort) {
+                ipapiPromise.abort();
+              }
+        
+              var lat = coordinates.coords.latitude;
+              var lng = coordinates.coords.longitude;
+        
+              // var lat = 32.740932;
+              // var lng = -117.130875;
+              setMapUserCenter(lat, lng);
+              map.setCenter({lat: lat,lng: lng});
+              loadNearbyPlaces(lat, lng);
+            }
+          });
+        }
       }
-      
-      
+      goToCurrentLocation();
+      $("#to-current-location").on("click",function (e) {
+        e.preventDefault();
+        goToCurrentLocation();
+      })
     });
   })(jQuery);
 }
@@ -75,7 +108,7 @@ function loadNearbyPlaces(lat, lng) {
   var request = {
     location: new google.maps.LatLng(lat, lng),
     radius: '5000',
-    types: ["airport","amusement_park","aquarium","art_gallery","bakery","bar","book_store","bowling_alley","bus_station","cafe","campground","casino","embassy","establishment","food","gas_station","liquor_store","meal_delivery","meal_takeaway","movie_theater","moving_company","museum","night_club","painter","park","parking","police","restaurant","shopping_mall","spa","stadium","university","zoo","point_of_interest","locality"]
+    types: ["airport","amusement_park","aquarium","art_gallery","bakery","bar","book_store","bowling_alley","bus_station","cafe","campground","casino","embassy","establishment","food","gas_station","liquor_store","meal_delivery","meal_takeaway","movie_theater","moving_company","museum","night_club","painter","park","parking","police","restaurant","shopping_mall","spa","stadium","university","zoo","point_of_interest"]
   };
   var service = new google.maps.places.PlacesService(map);
   service.nearbySearch(request, function (response, status, pagination) {
@@ -93,7 +126,8 @@ function loadNearbyPlaces(lat, lng) {
       var place = $(placeTemplate({
         url: "",
         photo: photo,
-        name: place.name
+        name: place.name,
+        distance: distance(userMarker.position.lat(), userMarker.position.lng(), place.geometry.location.lat(), place.geometry.location.lng())
       }));
       $("#list-places").append(place);
     });
@@ -102,7 +136,17 @@ function loadNearbyPlaces(lat, lng) {
     //   pagination.nextPage();
     // }
   });
-  
+}
+function distance(lat1, lon1, lat2, lon2) {
+  var R = 6371; // km (change this constant to get miles)
+  var dLat = (lat2-lat1) * Math.PI / 180;
+  var dLon = (lon2-lon1) * Math.PI / 180;
+  var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180 ) * Math.cos(lat2 * Math.PI / 180 ) *
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  var d = R * c * 0.6213711923;
+  return d.toFixed(2);
 }
 
 

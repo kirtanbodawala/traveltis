@@ -4,7 +4,15 @@
         <div id="map-canvas" class="full-height xs-half-height"></div>
     </div>
     <div class="col-md-3">
-        <p>Getting your nearby locations.</p>
+        <br />
+        <div class="input-group">
+            <input type="text" id="place-autocomplete" class="form-control" />
+        </div>
+        OR
+        <a href="" class="infoTip" id="to-current-location">
+            <small>Go to my current location</small>
+        </a>
+
         <div id="list-places" class="full-height max-full-height xs-half-height">
         </div>
     </div>
@@ -14,11 +22,19 @@
         <div class="media">
             <% if(photo.length) { %>
             <a class="media-left" href="<%= url %>">
+                <div class="media-wrapper">
                 <img class="media-object" src="<%= photo %>" alt="<%= name %>">
+                </div>
             </a>
             <% } %>
             <div class="media-body">
-                <p class="media-heading"><%= name %></p>
+                <p class="media-heading single-line">
+                    <a href="<%= url %>"><%= name %></a>
+                </p>
+                <a class="media-left" href="<%= url %>">
+                    <span class="distance"><%= distance %> miles away</span>
+                </a>
+
             </div>
         </div>
     </script>
