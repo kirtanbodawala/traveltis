@@ -1,8 +1,7 @@
 var map;
 var placeTemplate = _.template($("#place-media").html());
 function initMap() {
-  var centerpoint = new google.maps.LatLng(googleConfig.center.lat, googleConfig.center.lng); // center point of the map
-  var infoWindow = new google.maps.InfoWindow();
+  var centerpoint = new google.maps.LatLng(googleConfig.center.lat, googleConfig.center.lng);
   var mapOptions = {
     zoom: 12,
     center: centerpoint,
@@ -42,53 +41,93 @@ function initMap() {
   
   (function($) {
     $(document).ready(function() {
-  
-      var goToCurrentLocation = function() {
-        var ipapiPromise = $.getJSON("http://ip-api.com/json/?callback=?", function(data) {
-          console.log('-0---->', data);
-          if(data && data.lat && data.lon) {
-            setMapUserCenter(data.lat, data.lon);
-            map.setCenter({lat: data.lat,lng: data.lon});
-            loadNearbyPlaces(data.lat, data.lon);
-            ipapiPromise = null;
-          }
-        });
-  
-        // If geolocation is available in browser
-        if(Modernizr.geolocation) {
-          navigator.geolocation.getCurrentPosition(function (coordinates) {
-            console.log(coordinates);
-            if (
-              coordinates.coords &&
-              coordinates.coords.latitude &&
-              coordinates.coords.longitude ) {
-              if(ipapiPromise && ipapiPromise.abort) {
-                ipapiPromise.abort();
-              }
-        
-              var lat = coordinates.coords.latitude;
-              var lng = coordinates.coords.longitude;
-        
-              // var lat = 32.740932;
-              // var lng = -117.130875;
-              setMapUserCenter(lat, lng);
-              map.setCenter({lat: lat,lng: lng});
-              loadNearbyPlaces(lat, lng);
-            }
-          });
-        }
-      }
-      goToCurrentLocation();
-      $("#to-current-location").on("click",function (e) {
-        e.preventDefault();
-        goToCurrentLocation();
-      })
+      initializeLocations();
+      window.onpopstate = initializeLocations;
     });
   })(jQuery);
 }
 
+function initializeLocations() {
+  
+  $("#place-autocomplete").val("");
+  var goToCurrentLocation = function() {
+    var ipapiPromise = $.getJSON("http://ip-api.com/json/?callback=?", function(data) {
+      console.log('-0---->', data);
+      if(data && data.lat && data.lon) {
+        setMapUserCenter(data.lat, data.lon, false);
+        map.setCenter({lat: data.lat,lng: data.lon});
+        loadNearbyPlaces(data.lat, data.lon);
+        ipapiPromise = null;
+      }
+    });
+    
+    // If geolocation is available in browser
+    if(Modernizr.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (coordinates) {
+        console.log(coordinates);
+        if (
+          coordinates.coords &&
+          coordinates.coords.latitude &&
+          coordinates.coords.longitude ) {
+          if(ipapiPromise && ipapiPromise.abort) {
+            ipapiPromise.abort();
+          }
+          
+          var lat = coordinates.coords.latitude;
+          var lng = coordinates.coords.longitude;
+          
+          // var lat = 32.740932;
+          // var lng = -117.130875;
+          setMapUserCenter(lat, lng);
+          map.setCenter({lat: lat,lng: lng});
+          loadNearbyPlaces(lat, lng);
+        }
+      });
+    }
+  }
+  
+  var locationConfig = {
+    lat: 0,
+    lng: 0,
+  };
+  
+  var p = _.map(location.search.slice(1).split('&'), function(variable) {
+    return variable.split("=");
+    var obj = {};
+    obj[split[0]] = split[1];
+    return obj;
+  });
+  var params = {};
+  _.each(p, function(param) {
+    params[param[0]] = param[1];
+  });
+  
+  if(params.lat) {
+    locationConfig.lat = parseFloat(params.lat);
+  }
+  
+  if(params.lng) {
+    locationConfig.lng = parseFloat(params.lng);
+  }
+  
+  
+  if(locationConfig.lat && locationConfig.lng) {
+    var push = false;
+    setMapUserCenter(locationConfig.lat, locationConfig.lng, push);
+    map.setCenter({lat: locationConfig.lat, lng: locationConfig.lng});
+    loadNearbyPlaces(locationConfig.lat, locationConfig.lng);
+  } else {
+    goToCurrentLocation();
+  }
+  
+  $("#to-current-location").on("click",function (e) {
+    e.preventDefault();
+    goToCurrentLocation();
+  });
+}
+
 var userMarker = null;
-function setMapUserCenter(lat, lng) {
+function setMapUserCenter(lat, lng, push) {
   
   if(userMarker && userMarker.setMap) {
     userMarker.setMap(null);
@@ -102,6 +141,11 @@ function setMapUserCenter(lat, lng) {
       title: 'Your current location'
     });
   }
+  if(typeof push == "undefined" || push) {
+    // Change history to reflect new changes
+    history.pushState(null, null, "/?lat=" + lat + "&lng=" + lng);
+  }
+  
 }
 
 function loadNearbyPlaces(lat, lng) {
@@ -111,6 +155,7 @@ function loadNearbyPlaces(lat, lng) {
     types: ["airport","amusement_park","aquarium","art_gallery","bakery","bar","book_store","bowling_alley","bus_station","cafe","campground","casino","embassy","establishment","food","gas_station","liquor_store","meal_delivery","meal_takeaway","movie_theater","moving_company","museum","night_club","painter","park","parking","police","restaurant","shopping_mall","spa","stadium","university","zoo","point_of_interest"]
   };
   var service = new google.maps.places.PlacesService(map);
+  
   service.nearbySearch(request, function (response, status, pagination) {
     $("#list-places").html("");
     _.each(response, function(place, index) {
@@ -119,6 +164,7 @@ function loadNearbyPlaces(lat, lng) {
         placeId = place.place_id;
       }
       console.log(place.place_id);
+      //console.log(place);
       //console.log(place.photos);
       var photo = "";
       if(place.photos && place.photos.length) {
