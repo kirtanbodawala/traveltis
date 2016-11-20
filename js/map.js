@@ -159,6 +159,11 @@ function loadNearbyPlaces(lat, lng) {
   service.nearbySearch(request, function (response, status, pagination) {
     $("#list-places").html("");
     _.each(response, function(place, index) {
+      var placeId = "";
+      if(place.place_id && place.place_id.length) {
+        placeId = place.place_id;
+      }
+      console.log(place.place_id);
       //console.log(place);
       //console.log(place.photos);
       var photo = "";
@@ -169,17 +174,30 @@ function loadNearbyPlaces(lat, lng) {
       }
       // Populate places
       var place = $(placeTemplate({
-        url: "",
+        url: "/place.php?id=" + placeId,
         photo: photo,
         name: place.name,
         distance: distance(userMarker.position.lat(), userMarker.position.lng(), place.geometry.location.lat(), place.geometry.location.lng())
       }));
       $("#list-places").append(place);
     });
+    $("#list-places").last().append("<input type='submit' id='more' name='More Results' />");
     
-    // if(pagination.hasNextPage) {
-    //   pagination.nextPage();
-    // }
+    // $(window).scroll(function () { 
+    //    if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100) {
+    //       //Add something at the end of the page
+    //    }
+    // });
+    if(pagination.hasNextPage) {
+      //pagination.nextPage();
+      var moreButton = document.getElementById('more');
+      moreButton.disabled = false;
+
+      moreButton.addEventListener("click", function(){
+        moreButton.disabled = true;
+        pagination.nextPage();
+      })
+    }
   });
 }
 function distance(lat1, lon1, lat2, lon2) {
@@ -194,7 +212,9 @@ function distance(lat1, lon1, lat2, lon2) {
   return d.toFixed(2);
 }
 
-
+function placeDetails(){
+  var placeId = $('.place-id');
+}
 
 // function initialize() {
 //   //Los Angeles CenterPoint.

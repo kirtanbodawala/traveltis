@@ -34,7 +34,6 @@
                 <a class="media-left" href="<%= url %>">
                     <span class="distance"><%= distance %> miles away</span>
                 </a>
-
             </div>
         </div>
     </script>
