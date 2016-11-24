@@ -1,5 +1,6 @@
 var map;
 var placeDetail = _.template($("#place-info").html());
+var placeTime = _.template($("#operating-hours").html());
 function initMap() {
   var centerpoint = new google.maps.LatLng(googleConfig.center.lat, googleConfig.center.lng); // center point of the map
   var mapOptions = {
@@ -28,6 +29,21 @@ function initMap() {
     }));
     $("#place-details").append(place);
     //initGallery(response.photos);
+    var open_now = response.opening_hours['open_now'];
+    $("#place-time").html("");
+    // if(open_now == false){
+    //   var time = $(placeTime({
+    //     hour: "Closed Now",
+    //   }));
+    //   $("#place-time").append(time);
+    // }
+    _.each(response.opening_hours['weekday_text'], function(hour){
+      var time = $(placeTime({
+        hour: hour,
+      }));
+      //console.log(time);
+      $("#place-time").append(time);
+    });
   });
 }
 

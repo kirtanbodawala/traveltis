@@ -70,10 +70,12 @@
             <!-- Blog Categories Well -->
             <div class="well">
                 <h4 id="place-hour">Hours of Operation</h4>
-                <hr>
-                <ul class="list-unstyled">
-                    <li>Monday</li>
+                <hr class="single-line">
+                <ul id="place-time">
                 </ul>
+                <script type="text/template" id="operating-hours">
+                        <li><%= hour %></li>
+                </script>
             </div>
         </div>
     </div>

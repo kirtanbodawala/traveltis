@@ -163,7 +163,7 @@ function loadNearbyPlaces(lat, lng) {
       if(place.place_id && place.place_id.length) {
         placeId = place.place_id;
       }
-      console.log(place.place_id);
+      //console.log(place.place_id);
       //console.log(place);
       //console.log(place.photos);
       var photo = "";
