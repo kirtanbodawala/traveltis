@@ -6,7 +6,7 @@
     <title>Traveltis</title>
     <meta name="description" content="A travel guide for everyone">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="format-detection" content="telephone=no">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
 

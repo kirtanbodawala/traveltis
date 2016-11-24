@@ -8,36 +8,32 @@
 <div id="map-canvas" class="hidden-xs-up"></div>
 <div class="container" style="padding-top: 30px;">
     <div class="row">
-        <!-- Blog Post Content Column -->
+        <!-- Place Details Content Column -->
         <div class="col-lg-8">
-            <!-- Blog Post -->
-            <!-- Title -->
-            <h1>This is place name</h1>
-            <!-- END of Title -->
-            <!-- Place Address and Phone Number -->
-            <p class="lead">
-                <i class="fa fa-map-marker" aria-hidden="true"></i><br>
-                <i class="fa fa-phone" aria-hidden="true"></i>
-            </p>
-
-            <!-- END of Place Address and Phone Number -->
-            <hr>
-            <!-- Place Website -->
-            <p>
-                <span class="glyphicon glyphicon-globe"></span>
-                <a class="placeWebsite" href="" target="_blank"></a></p>
-            <hr>
+            <div id="place-details"></div>
+            <?php include_once __DIR__ . '/components/scripts.php'; ?>
+            <script type="text/template" id="place-info">
+                <!-- Place Name -->
+                <h1> <%= name %> </h1>
+                <!-- Place Address and Phone Number -->
+                <p class="lead">
+                    <span id="address">Address:</span> <%= address %> <br>
+                    <span id="phone-number">Phone Number:</span><a href="tel:<%= phoneNumber %>"> <%= phoneNumber %></a>
+                </p>
+                <hr>
+                <!-- Place Website -->
+                <small>
+                    <a class="placeWebsite" href="<%= website %>" target="_blank">Click here to visit <%= name %></a>
+                </small>
+                <hr>
+            </script>
             <!-- Preview Image -->
-            <?php require __DIR__."/components/gallery.php"?>
-            <hr>
-            <!-- Post Content -->
+            <?php require __DIR__."/components/gallery.php" ?>
+            <!-- Place Information -->
             <p class="lead"></p>
             <p class="lead"></p>
             <p></p>
             <p></p>
-
-            <hr>
-
             <div id="disqus_thread"></div>
             <script>
                 var disqus_config = function () {
@@ -52,7 +48,7 @@
                     (d.head || d.body).appendChild(s);
                 })();
             </script>
-            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Traveltis(Disqus).</a></noscript>
         </div>
         <!-- Blog Sidebar Widgets Column -->
         <div class="col-md-4">
@@ -73,22 +69,17 @@
 
             <!-- Blog Categories Well -->
             <div class="well">
-                <h4>Hours of Operation</h4>
-                <div class="row">
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#">
-                            </a>
-                        </li>
-                        <hr class="line">
-                    </ul>
-                </div>
+                <h4 id="place-hour">Hours of Operation</h4>
+                <hr>
+                <ul class="list-unstyled">
+                    <li>Monday</li>
+                </ul>
             </div>
         </div>
     </div>
     <!-- /.row -->
 </div>
-<?php include_once __DIR__ . '/components/scripts.php'; ?>
+
 <script src="/bower_components/photoswipe/dist/photoswipe.min.js"></script>
 <script src="/bower_components/photoswipe/dist/photoswipe-ui-default.min.js"></script>
 <script>

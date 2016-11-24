@@ -79,3 +79,31 @@
   overflow: hidden;
   white-space: nowrap;
 }
+
+#place-details {
+  background-color: #f9f6f6;
+  padding: 10px;
+  h1{
+    display: inline-block;
+    &:hover{
+      color: darken(dodgerblue, 20%);
+    }
+  }
+  .lead {
+    span {
+      font-weight: bold;
+    }
+  }
+  a {
+      text-decoration: none;
+  }
+  hr {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+}
+
+#place-hour {
+  text-align: center;
+  margin-top: 20px;
+}

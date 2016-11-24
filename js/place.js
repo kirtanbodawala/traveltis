@@ -1,4 +1,5 @@
 var map;
+var placeDetail = _.template($("#place-info").html());
 function initMap() {
   var centerpoint = new google.maps.LatLng(googleConfig.center.lat, googleConfig.center.lng); // center point of the map
   var mapOptions = {
@@ -16,8 +17,17 @@ function initMap() {
   var service = new google.maps.places.PlacesService(map);
   
   service.getDetails({placeId: placeId}, function (response, status) {
+    $("#place-details").html("");
     console.log(response);
-    initGallery(response.photos);
+    var details = _.pick(response, ['name', 'formatted_address', 'international_phone_number', 'website']);
+    var place = $(placeDetail({
+      name: details.name,
+      address: details.formatted_address,
+      phoneNumber: details.international_phone_number,
+      website: details.website
+    }));
+    $("#place-details").append(place);
+    //initGallery(response.photos);
   });
 }
 
@@ -36,7 +46,7 @@ function initGallery(photos) {
       src: photo.getUrl({maxWidth: maxWidth})
     });
   });
-  
+
   // define options (if needed)
   var options = {
     // optionName: 'option value'
@@ -44,7 +54,7 @@ function initGallery(photos) {
     index: 0 // start at first slide
   };
 
-  // Initializes and opens PhotoSwipe
+  //Initializes and opens PhotoSwipe
   var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
   gallery.init();
 }
