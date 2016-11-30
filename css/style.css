@@ -57,12 +57,7 @@
   white-space: nowrap; }
 
 #place-details {
-  background-color: #f9f6f6;
   padding: 10px; }
-  #place-details h1 {
-    display: inline-block; }
-    #place-details h1:hover {
-      color: #005db7; }
   #place-details .lead span {
     font-weight: bold; }
   #place-details a {
@@ -77,5 +72,21 @@
 
 #place-time {
   list-style-type: none; }
+
+.my-gallery {
+  width: 100%;
+  float: left;
+  padding-left: 10px; }
+  .my-gallery img {
+    width: 200px;
+    height: 200px; }
+  .my-gallery figure {
+    display: block;
+    float: left;
+    margin: 0 5px 5px 0;
+    width: 200px; }
+
+#gallery {
+  padding-left: 10px; }
 
 /*# sourceMappingURL=style.css.map */

@@ -81,14 +81,7 @@
 }
 
 #place-details {
-  background-color: #f9f6f6;
   padding: 10px;
-  h1{
-    display: inline-block;
-    &:hover{
-      color: darken(dodgerblue, 20%);
-    }
-  }
   .lead {
     span {
       font-weight: bold;
@@ -110,4 +103,22 @@
 
 #place-time {
   list-style-type: none;
+}
+.my-gallery {
+  width: 100%;
+  float: left;
+  padding-left: 10px;
+  img {
+    width: 200px;
+    height: 200px;
+  }
+  figure {
+    display: block;
+    float: left;
+    margin: 0 5px 5px 0;
+    width: 200px;
+  }  
+}
+#gallery {
+  padding-left: 10px;
 }

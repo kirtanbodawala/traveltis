@@ -181,23 +181,13 @@ function loadNearbyPlaces(lat, lng) {
       }));
       $("#list-places").append(place);
     });
-    $("#list-places").last().append("<input type='submit' id='more' name='More Results' />");
-    
-    // $(window).scroll(function () { 
-    //    if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100) {
-    //       //Add something at the end of the page
-    //    }
-    // });
-    if(pagination.hasNextPage) {
-      //pagination.nextPage();
-      var moreButton = document.getElementById('more');
-      moreButton.disabled = false;
-
-      moreButton.addEventListener("click", function(){
-        moreButton.disabled = true;
-        pagination.nextPage();
-      })
-    }
+      // $("#list-places").scroll(function(){
+      //   if($("#list-places").scrollTop() + $("#list-places").height() > $(document).height()){
+      //     if(pagination.hasNextPage){
+      //       pagination.nextPage();
+      //     }
+      //   }
+      // });
   });
 }
 function distance(lat1, lon1, lat2, lon2) {

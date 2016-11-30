@@ -29,6 +29,16 @@
             </script>
             <!-- Preview Image -->
             <?php require __DIR__."/components/gallery.php" ?>
+            <h2 id="gallery">Gallery</h2>
+            <div class="my-gallery" itemscope itemtype=""></div>
+                <script type="text/template" id="place-gallery">
+                    <figure itemprop="associatedMedia" itemscope itemtype="">
+                        <a href="<%= photo %>" itemprop="contentUrl" data-size="1024x1024">
+                            <img src="<%= photo %>" itemprop="thumbnail" alt="Image description" />
+                        </a>                          
+                    </figure>
+                </script>
+
             <!-- Place Information -->
             <p class="lead"></p>
             <p class="lead"></p>
